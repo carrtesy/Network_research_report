@@ -22,9 +22,12 @@
 		- PF: parent
 		- VF: child
 		- idea: PF for CPU, VF for GPU (by on/off?)
-	
 		
-
+- tomorrow
+	- Detailed study on SR-IOV
+	- Details on RSS and others (https://www.kernel.org/doc/Documentation/networking/scaling.txt)
+	- Search for keyword VMQ (https://www.intel.co.kr/content/www/kr/ko/support/articles/000006703/network-and-i-o/ethernet-products.html)
+	
 ### 2020-09-08
 
 - Concept study: RSS(Receive Side Scaling)
