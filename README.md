@@ -17,7 +17,7 @@
 			- Hyper-V Extensible Switch: virtualized ethernet switch, runs in the management operating system of the Hyper-V parent partition.
 			
 	- SR-IOV
-	![SR-IOV](./imgs/sriovarchitecture.png) 
+		![SR-IOV](./imgs/sriovarchitecture.png) 
 		- PF: parent
 		- VF: child
 		- idea: PF for CPU, VF for GPU (by on/off?)
