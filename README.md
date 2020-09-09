@@ -6,6 +6,24 @@
 
 ## Logs
 
+### 2020-09-09
+- Concept study: SR-IOV
+	- History
+		- NDIS 6.20: introduces the virtual machine queue (VMQ) interface to support Microsoft Hyper-V network performance improvements.
+		- NDIS 6.30: https://docs.microsoft.com/ko-kr/windows-hardware/drivers/network/virtualized-networking-enhancements-in-ndis-6-30
+		
+			- SR-IOV: partitioning of the hardware resources on a PCI Express (PCIe) NW adapter -> virtual interfaces(VFs). 
+			bypass the virtual software switch layer by assigning a VF to the Hyper-V child partition directly. 
+			- Hyper-V Extensible Switch: virtualized ethernet switch, runs in the management operating system of the Hyper-V parent partition.
+			
+	- SR-IOV
+	![SR-IOV](./imgs/sriovarchitecture.png) 
+		- PF: parent
+		- VF: child
+		- idea: PF for CPU, VF for GPU (by on/off?)
+	
+		
+
 ### 2020-09-08
 
 - Concept study: RSS(Receive Side Scaling)
