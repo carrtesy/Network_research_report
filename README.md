@@ -6,6 +6,27 @@
 
 ## Logs
 
+### 2020-09-10
+- Concepts study: Virtualized Networking
+	- SR-IOV
+		- Separable : https://docs.microsoft.com/ko-kr/windows-hardware/drivers/network/overview-of-single-root-i-o-virtualization--sr-iov-
+			- "Each PF and VF is assigned a unique PCI Express Requester ID (RID) that allows an I/O memory management unit (IOMMU) to differentiate between different traffic streams and apply memory and interrupt translations between the PF and VFs. This allows traffic streams to be delivered directly to the appropriate Hyper-V parent or child partition. As a result, nonprivileged data traffic flows from the PF to VF without affecting other VFs."
+		- Architecture
+			![SR-IOV](./imgs/sriovarchitecture.png)			
+		- PF
+			- Enable Virtualization
+			- exposing VFs
+		- NIC Switch
+			-  Setup : [OID_NIC_SWITCH_CREATE_SWITCH](https://docs.microsoft.com/ko-kr/windows-hardware/drivers/network/oid-nic-switch-create-switch)
+			- VPORT: [OID_NIC_CREATE_VPORT](https://docs.microsoft.com/ko-kr/windows-hardware/drivers/network/oid-nic-switch-create-vport)
+		- [Interface](https://docs.microsoft.com/ko-kr/windows-hardware/drivers/network/single-root-i-o-virtualization--sr-iov--interface)
+			- PCIe VF is assigned a unique Requester ID.
+			- IOMMU do:
+				Distinguish/ isolation of traffic
+			
+	- VMQ
+		- CPU Intervention needed	
+
 ### 2020-09-09
 - Concept study: SR-IOV
 	- History
