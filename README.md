@@ -6,6 +6,20 @@
 
 ## Logs
 
+### 2020-09-16
+- Setting virtual machine: ssh -X was **successful**
+- host machine: server
+- virtual machine
+	- virtual machine setup
+		- machine name: guest0
+		- user name: vm0
+		- pw ****
+		- host device network: enpos25: mactap
+
+### 2020-09-14
+- Try setting up venv on server, failed
+	- https://smdaudhilbe.wordpress.com/2013/04/11/how-to-install-ubuntu-inside-qemu-emulator-and-make-a-virtual-machine/
+
 ### 2020-09-10
 - Concepts study: Virtualized Networking
 	- SR-IOV
