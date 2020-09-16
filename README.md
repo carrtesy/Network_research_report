@@ -8,8 +8,11 @@
 
 ### 2020-09-16
 - Setting virtual machine: ssh -X was **successful**
+- used virt-manager
+![virt-manager](./imgs/virt-manager.png)
 - host machine: server
 - virtual machine
+![vm0](./imgs/vm0.png)
 	- virtual machine setup
 		- machine name: guest0
 		- user name: vm0
