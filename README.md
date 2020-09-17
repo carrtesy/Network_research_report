@@ -6,6 +6,11 @@
 
 ## Logs
 
+### 2020-09-17
+- overview of packet reception: https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/6/html/performance_tuning_guide/s-network-packet-reception
+
+- setting ethernet on vm : not yet
+
 ### 2020-09-16
 - Setting virtual machine: ssh -X was **successful**
 - used virt-manager
