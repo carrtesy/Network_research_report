@@ -6,6 +6,58 @@
 
 ## Logs
 
+### 2020-09-22
+- completed SR-IOV setup based on:
+https://software.intel.com/content/www/us/en/develop/articles/configure-sr-iov-network-virtual-functions-in-linux-kvm.html
+
+- setups
+assigned 1 vm, with SR-IOV
+
+- ping test
+
+vm0 -> server0 -> NIC(1G)   ------------------------> NIC -> server1 (vm without SR-IOV)
+```
+PING 115.145.179.20 (115.145.179.20) 56(84) bytes of data.
+64 bytes from 115.145.179.20: icmp_seq=7 ttl=64 time=0.473 ms
+64 bytes from 115.145.179.20: icmp_seq=8 ttl=64 time=0.476 ms
+64 bytes from 115.145.179.20: icmp_seq=9 ttl=64 time=0.439 ms
+64 bytes from 115.145.179.20: icmp_seq=10 ttl=64 time=0.443 ms
+64 bytes from 115.145.179.20: icmp_seq=11 ttl=64 time=0.379 ms
+^C
+--- 115.145.179.20 ping statistics ---
+11 packets transmitted, 5 received, 54% packet loss, time 10232ms
+rtt min/avg/max/mdev = 0.379/0.442/0.476/0.034 ms
+```
+	
+vm0 -> server0 -> NIC(10G) ------------------------> NIC -> server1(vm with SR-IOV)
+```
+PING 10.0.0.4 (10.0.0.4) 56(84) bytes of data.
+64 bytes from 10.0.0.4: icmp_seq=1 ttl=64 time=0.192 ms
+64 bytes from 10.0.0.4: icmp_seq=2 ttl=64 time=0.119 ms
+64 bytes from 10.0.0.4: icmp_seq=3 ttl=64 time=0.122 ms
+64 bytes from 10.0.0.4: icmp_seq=4 ttl=64 time=0.119 ms
+64 bytes from 10.0.0.4: icmp_seq=5 ttl=64 time=0.116 ms
+^C
+--- 10.0.0.4 ping statistics ---
+5 packets transmitted, 5 received, 0% packet loss, time 4085ms
+rtt min/avg/max/mdev = 0.116/0.133/0.192/0.031 ms
+
+```
+
+server0 -> NIC(1G) ------------------------> NIC -> server1 ( no vm setup )
+```
+PING 115.145.179.20 (115.145.179.20) from 115.145.179.15 enp0s25: 56(84) bytes of data.
+64 bytes from 115.145.179.20: icmp_seq=1 ttl=64 time=0.130 ms
+64 bytes from 115.145.179.20: icmp_seq=2 ttl=64 time=0.163 ms
+64 bytes from 115.145.179.20: icmp_seq=3 ttl=64 time=0.166 ms
+64 bytes from 115.145.179.20: icmp_seq=4 ttl=64 time=0.162 ms
+64 bytes from 115.145.179.20: icmp_seq=5 ttl=64 time=0.164 ms
+^C
+--- 115.145.179.20 ping statistics ---
+5 packets transmitted, 5 received, 0% packet loss, time 4086ms
+rtt min/avg/max/mdev = 0.130/0.157/0.166/0.013 ms
+```
+
 ### 2020-09-17
 - overview of packet reception: https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/6/html/performance_tuning_guide/s-network-packet-reception
 
