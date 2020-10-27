@@ -6,6 +6,18 @@
 
 ## Logs
 
+### 2020-10-27
+- successfully set 2 VMs with SR-IOV: https://software.intel.com/content/www/us/en/develop/articles/configure-sr-iov-network-virtual-functions-in-linux-kvm.html#vf-interface-name 
+
+	todo:
+	- check funciton ixgbe_pci_sriov_configure @ ixgbe_sriov.c
+	- check function ixgbe_pci_sriov_enable @ixgbe_sriov.c
+	- check function ixgbe_enable_sriov @ ixgbe_sriov.c
+ 
+
+### 2020-10-26
+- assigning static ip address by: https://www.cyberciti.biz/faq/linux-kvm-libvirt-dnsmasq-dhcp-static-ip-address-configuration-for-guest-os/
+
 ### 2020-09-22
 - completed SR-IOV setup based on:
 https://software.intel.com/content/www/us/en/develop/articles/configure-sr-iov-network-virtual-functions-in-linux-kvm.html
@@ -60,6 +72,22 @@ rtt min/avg/max/mdev = 0.130/0.157/0.166/0.013 ms
 
 ### 2020-09-17
 - overview of packet reception: https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/6/html/performance_tuning_guide/s-network-packet-reception
+
+- commands
+	- image creation
+```
+qemu-img create -f qcow2 ~/QEMU/img.qcow2 10G
+```
+	- 
+```
+sudo qemu-system-x86_64   -m 2048   -vga virtio   -show-cursor   -usb        -device usb-tablet    -enable-kvm   -cdrom ~/QEMU/ubuntu-18.04.5-live-server-amd64.iso   -drive file=~/QEMU/img.qcow2,if=virtio   -cpu host 
+
+sudo qemu-system-x86_64   -m 2048   -vga virtio   -show-cursor   -usb        -device usb-tablet -serial null -nographic   -enable-kvm   -cdrom ~/QEMU/ubuntu-18.04.5-live-server-amd64.iso   -drive file=~/QEMU/img.qcow2,if=virtio   -cpu host 
+
+sudo qemu-system-x86_64 -m 2048 -vga virtio -show-cursor -usb -device usb-tablet -serial mon:stdio -kernel -append '/dev/ttyS0' -nographic -enable-kvm -cdrom ~/QEMU/ubuntu-18.04.5-live-server-amd64.iso -drive file=~/QEMU/img.qcow2,if=virtio -cpu host
+
+sudo qemu-system-x86_64 -m 2048 -vga virtio -show-cursor -usb -device usb-tablet -serial pty -nographic -enable-kvm -cdrom ~/QEMU/ubuntu-18.04.5-live-server-amd64.iso -drive file=~/QEMU/img.qcow2,if=virtio -cpu host
+```
 
 - setting ethernet on vm : not yet
 
