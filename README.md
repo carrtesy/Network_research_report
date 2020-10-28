@@ -6,6 +6,191 @@
 
 ## Logs
 
+### 2020-10-28
+Analysis of code flow: set sriov_numvf to be 2 ---(?)----> interface 1, 2 created
+
+- main
+ixgbe_main.c
+```c
+#ifdef HAVE_RHEL6_SRIOV_CONFIGURE
+static struct pci_driver_rh ixgbe_driver_rh = {
+	.sriov_configure = ixgbe_pci_sriov_configure,
+};
+#endif
+```
+
+- sriov main
+ixgbe_sriov.c
+```c
+int ixgbe_pci_sriov_configure(struct pci_dev *dev, int num_vfs)
+{
+	if (num_vfs == 0)
+		return ixgbe_pci_sriov_disable(dev);
+	else
+		return ixgbe_pci_sriov_enable(dev, num_vfs);
+}
+``` 
+
+- if num_vfs != 0, enable
+```c
+static int ixgbe_pci_sriov_enable(struct pci_dev __maybe_unused *dev, int __maybe_unused num_vfs)
+{
+...
+    // !set here
+	err = __ixgbe_enable_sriov(adapter, num_vfs);
+	if (err)
+		goto err_out;
+
+	for (i = 0; i < adapter->num_vfs; i++)
+		ixgbe_vf_configuration(dev, (i | 0x10000000));
+
+	/* reset before enabling SRIOV to avoid mailbox issues */
+	ixgbe_sriov_reinit(adapter);
+
+	err = pci_enable_sriov(dev, num_vfs);
+	if (err) {
+		e_dev_warn("Failed to enable PCI sriov: %d\n", err);
+		goto err_out;
+	}
+	ixgbe_get_vfs(adapter);
+
+out:
+	return num_vfs;
+
+err_out:
+	return err;
+...
+}
+```
+
+1.  enable sriov
+```c
+static int __ixgbe_enable_sriov(struct ixgbe_adapter *adapter,
+				unsigned int num_vfs)
+```
+-> by setting flags.
+
+
+2.  ixgbe_vf_configuration
+```c
+#ifdef CONFIG_PCI_IOV
+int ixgbe_vf_configuration(struct pci_dev *pdev, unsigned int event_mask)
+{
+	unsigned char vf_mac_addr[6];
+	struct ixgbe_adapter *adapter = pci_get_drvdata(pdev);
+	unsigned int vfn = (event_mask & 0x3f);
+	bool enable = ((event_mask & 0x10000000U) != 0);
+
+	if (enable) {
+		memset(vf_mac_addr, 0, ETH_ALEN);
+		memcpy(adapter->vfinfo[vfn].vf_mac_addresses, vf_mac_addr, 6);
+	}
+
+	return 0;
+}
+```
+-> allocate mac address
+
+struct ixgbe_hw
+```c
+struct ixgbe_hw *hw = &adapter->hw;
+``` 
+
+3. reinit
+```c
+ixgbe_sriov_reinit(adapter);
+```
+
+4. pci_enable_sriov
+```c
+err = pci_enable_sriov(dev, num_vfs);
+```
+
+5. ixgbe_get_vfs(adapter)
+```c
+ixgbe_get_vfs(adapter);
+```
+
+- others
+@ ixgbe_type.h
+```c
+struct ixgbe_hw {
+	u8 IOMEM *hw_addr;
+	void *back;
+	struct ixgbe_mac_info mac;
+	struct ixgbe_addr_filter_info addr_ctrl;
+	struct ixgbe_fc_info fc;
+	struct ixgbe_phy_info phy;
+	struct ixgbe_link_info link;
+	struct ixgbe_eeprom_info eeprom;
+	struct ixgbe_bus_info bus;
+	struct ixgbe_mbx_info mbx;
+	const u32 *mvals;
+	u16 device_id;
+	u16 vendor_id;
+	u16 subsystem_device_id;
+	u16 subsystem_vendor_id;
+	u8 revision_id;
+	bool adapter_stopped;
+	int api_version;
+	bool force_full_reset;
+	bool allow_unsupported_sfp;
+	bool wol_enabled;
+	bool need_crosstalk_fix;
+};
+```
+
+- struct ixgbe_adapter
+@ixgbe.h
+```c
+/* board specific private data structure */
+struct ixgbe_adapter {
+...
+
+	/* Some features need tri-state capability,
+	 * thus the additional *_CAPABLE flags.
+	 */
+	u32 flags;
+...
+
+#define IXGBE_FLAG_VMDQ_ENABLED			(u32)(1 << 11)
+...
+#define IXGBE_FLAG_SRIOV_ENABLED		(u32)(1 << 20)
+...
+	int num_q_vectors;	/* current number of q_vectors for device */
+	int max_q_vectors;	/* upper limit of q_vectors for device */
+	struct ixgbe_ring_feature ring_feature[RING_F_ARRAY_SIZE];
+	struct msix_entry *msix_entries;
+...
+};
+```
+
+struct ring_feature
+@ixgbe.h
+```c
+struct ixgbe_ring_feature {
+	u16 limit;	/* upper limit on feature indices */
+	u16 indices;	/* current value of indices */
+	u16 mask;	/* Mask used for feature to ring mapping */
+	u16 offset;	/* offset to start of feature */
+};
+```
+
+- allocate vf macvlan, set offset, enable L2 switch
+```c
+adapter->num_vfs = num_vfs;
+
+ixgbe_alloc_vf_macvlans(adapter, num_vfs);
+
+adapter->ring_feature[RING_F_VMDQ].offset = num_vfs;
+
+/* enable L2 switch and replication */
+adapter->flags |= IXGBE_FLAG_SRIOV_L2SWITCH_ENABLE |
+			IXGBE_FLAG_SRIOV_REPLICATION_ENABLE;
+```
+
+
+
 ### 2020-10-27
 - successfully set 2 VMs with SR-IOV: https://software.intel.com/content/www/us/en/develop/articles/configure-sr-iov-network-virtual-functions-in-linux-kvm.html#vf-interface-name 
 
