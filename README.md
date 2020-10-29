@@ -8,8 +8,18 @@
 
 ### 2020-10-29
 About VMDq(virtual machine device queue): https://www.youtube.com/watch?v=QvKXbpV6WXk
+=> into multiple queues
+
 ![vmdq](./imgs/vmdq.png)
-![vmdq_visual](./imgs/vmdq_visual.png)
+![vmdq_visual](./imgs/vmdq_gr.png)
+
+
+About SR-IOV(Single Root IO Virtualization): https://www.youtube.com/watch?v=hRHsk8Nycdg
+=> DMA'd
+![sriov_vf](./imgs/sriov_vf.png)
+![sriov_ex](./imgs/sriov_ex.png)
+![sriov_de](./imgs/sriov_de.png)
+![sriov_de](./imgs/sriov_gr.png)
 
 
 
