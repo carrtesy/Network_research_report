@@ -6,6 +6,14 @@
 
 ## Logs
 
+### 2020-10-29
+About VMDq(virtual machine device queue): https://www.youtube.com/watch?v=QvKXbpV6WXk
+![vmdq](./imgs/vmdq.png)
+![vmdq_visual](./imgs/vmdq_visual.png)
+
+
+
+
 ### 2020-10-28
 Analysis of code flow: set sriov_numvf to be 2 ---(?)----> interface 1, 2 created
 
