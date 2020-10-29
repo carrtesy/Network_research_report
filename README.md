@@ -76,7 +76,18 @@ err_out:
 static int __ixgbe_enable_sriov(struct ixgbe_adapter *adapter,
 				unsigned int num_vfs)
 ```
--> by setting flags.
+=> flag setups : SRIOV, VMDQ
+
+=> vfinfo setups
+
+=> num_vfs
+
+=> alloc_vf_macvlans *
+
+=> ring feature
+
+=> L2SWITCH, SRIOV REPLICATION flags
+
 
 
 2.  ixgbe_vf_configuration
