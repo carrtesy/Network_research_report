@@ -6,7 +6,14 @@
 
 ## Logs
 
-### 2020-10-03
+### 2020-11-02
+problems
+1. Network default is not active
+![1102_prob1](./imgs/1102_prob1.png)
+2. Tried to restart, but "protocol wrong type for socket" error
+![1102_prob2](./imgs/1102_prob2.png)
+
+### 2020-10-30
 How to setup?
 1. Configure the number of VMs. 
 ```
