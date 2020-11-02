@@ -6,6 +6,38 @@
 
 ## Logs
 
+### 2020-10-03
+How to setup?
+1. Configure the number of VMs. 
+```
+$ echo 4 > /sys/class/net/<device name>/device/sriov_numvfs
+```
+2. check businfo with
+```
+$ lshw -c network -businfo
+```
+
+3. create ip for machine, if needed by: https://www.cyberciti.biz/faq/linux-kvm-libvirt-dnsmasq-dhcp-static-ip-address-configuration-for-guest-os/
+	- issue1 :  
+	```
+	$ sudo virsh net-start default
+	```
+	```
+         	error: Failed to start network default
+         	error: internal error: Failed to apply firewall rules /sbin/iptables -w --table filter --insert FORWARD --destination 192.168.122.0/24 --out-interface virbr0 --match conntrack --ctstate ESTABLISHED,RELATED --jump ACCEPT: iptables: Protocol wrong type for socket.
+	```
+	
+	-issue 2: virsh default xml missing
+	https://blog.programster.org/kvm-missing-default-network
+	
+
+3. (virt-manager) using GUI, add Hardware in PCI with name *Virtual Functions*
+
+
+
+
+
+
 ### 2020-10-29
 About VMDq(virtual machine device queue): https://www.youtube.com/watch?v=QvKXbpV6WXk
 => into multiple queues
