@@ -4,7 +4,62 @@
 
 2020 Fall, Undergraduate Research Project @SKKU
 
+## SRIOV setup
+How to setup?
+1. Configure the number of VMs. 
+```
+$ echo 4 > /sys/class/net/<device name>/device/sriov_numvfs
+```
+2. check businfo with
+```
+$ lshw -c network -businfo
+```
+
+3. create ip for machine, if needed by: https://www.cyberciti.biz/faq/linux-kvm-libvirt-dnsmasq-dhcp-static-ip-address-configuration-for-guest-os/
+
+4. (virt-manager) using GUI, add Hardware in PCI with name *Virtual Functions*
+
+5. add counterparts to the vm's routing table ( counterpart's ip: 10.0.0.4, for example)
+```
+route add -net 10.0.0.0 netmask 255.255.255.0 dev ens9
+```
+
+6. add vm to the counterparts' routing table ( vm's ip: 20.0.0.3 , for example)
+```
+route add -net 20.0.0.0 netmask 255.255.255.0 dev ens6f1
+```
+
 ## Logs
+
+
+
+### 2020-11-04
+downloaded ixgbe_vf from : https://sourceforge.net/projects/e1000/
+
+How to setup?
+1. Configure the number of VMs. 
+```
+$ echo 4 > /sys/class/net/<device name>/device/sriov_numvfs
+```
+2. check businfo with
+```
+$ lshw -c network -businfo
+```
+
+3. create ip for machine, if needed by: https://www.cyberciti.biz/faq/linux-kvm-libvirt-dnsmasq-dhcp-static-ip-address-configuration-for-guest-os/
+
+4. (virt-manager) using GUI, add Hardware in PCI with name *Virtual Functions*
+
+5. add counterparts to the vm's routing table ( counterpart's ip: 10.0.0.4, for example)
+```
+route add -net 10.0.0.0 netmask 255.255.255.0 dev ens9
+```
+
+6. add vm to the counterparts' routing table ( vm's ip: 20.0.0.3 , for example)
+```
+route add -net 20.0.0.0 netmask 255.255.255.0 dev ens6f1
+```
+
 
 ### 2020-11-02
 problems
@@ -39,10 +94,6 @@ $ lshw -c network -businfo
 	
 
 3. (virt-manager) using GUI, add Hardware in PCI with name *Virtual Functions*
-
-
-
-
 
 
 ### 2020-10-29
