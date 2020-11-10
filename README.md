@@ -7,7 +7,7 @@
 ## SRIOV setup
 How to setup?
 1. Configure the number of VMs. 
-```
+```https://blog.hkwon.me/ubuntu-18-04-netplan/
 $ echo 4 > /sys/class/net/<device name>/device/sriov_numvfs
 ```
 2. check businfo with
@@ -20,6 +20,7 @@ $ lshw -c network -businfo
 4. (virt-manager) using GUI, add Hardware in PCI with name *Virtual Functions*
 
 5. add counterparts to the vm's routing table ( counterpart's ip: 10.0.0.4, for example)
+
 ```
 route add -net 10.0.0.0 netmask 255.255.255.0 dev ens9
 ```
@@ -31,7 +32,38 @@ route add -net 20.0.0.0 netmask 255.255.255.0 dev ens6f1
 
 ## Logs
 
+### 2020-11-09
+Dive into Kernel
 
+- check current driver
+
+- Make Kernel File
+```
+	make -J 10
+```
+
+- Disable current(original) driver
+```
+	sudo rmmod ixgbe
+```
+
+- Enable new driver
+```
+	sudo inmod ./ixgbe.ko
+```
+
+- Return to current driver
+```
+	sudo modeprobe ixgbe
+```
+
+- View Logs
+```
+	dmesg
+```
+
+netplan setup
+https://blog.hkwon.me/ubuntu-18-04-netplan/
 
 ### 2020-11-04
 downloaded ixgbe_vf from : https://sourceforge.net/projects/e1000/
