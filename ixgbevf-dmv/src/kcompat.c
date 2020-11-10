@@ -1589,6 +1589,7 @@ int _kc_pci_wait_for_pending_transaction(struct pci_dev *dev)
 #if ( LINUX_VERSION_CODE < KERNEL_VERSION(3,13,0) )
 int __kc_dma_set_mask_and_coherent(struct device *dev, u64 mask)
 {
+    pr_info("[3-1] dma set mask, with mask %d\n", mask);
 	int err = dma_set_mask(dev, mask);
 
 	if (!err)

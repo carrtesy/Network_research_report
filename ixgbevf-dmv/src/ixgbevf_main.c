@@ -5345,6 +5345,8 @@ static void ixgbevf_assign_netdev_ops(struct net_device *dev)
 static int __devinit ixgbevf_probe(struct pci_dev *pdev,
 				   const struct pci_device_id *ent)
 {
+
+    pr_info("[2-1] ixgbevf_probe started");_
 	struct net_device *netdev;
 	struct ixgbevf_adapter *adapter = NULL;
 #ifdef HAVE_NETDEVICE_MIN_MAX_MTU
@@ -5361,6 +5363,9 @@ static int __devinit ixgbevf_probe(struct pci_dev *pdev,
 	u32 hw_features;
 #endif
 #endif /* HAVE_NDO_SET_FEATURES */
+    
+    // ! dma settings
+    pr_info("[2-2] ixgbevf_probe, enable device and dma setting");_
 
 	err = pci_enable_device(pdev);
 	if (err)
@@ -5390,6 +5395,8 @@ static int __devinit ixgbevf_probe(struct pci_dev *pdev,
 
 	pci_set_master(pdev);
 
+    // ! alloc ethernet device
+    pr_info("[2-3] ixgbevf_probe, allocate etherdev");
 #ifdef HAVE_TX_MQ
 	netdev = alloc_etherdev_mq(sizeof(struct ixgbevf_adapter), MAX_TX_QUEUES);
 #else
@@ -5846,17 +5853,17 @@ static struct pci_driver ixgbevf_driver = {
 static int __init ixgbevf_init_module(void)
 {
 	int ret;
-	pr_info("[1] hello ixgbe!");	
+	pr_info("[1-1] hello ixgbe!");	
 	pr_info("ixgbevf: %s - version %s\n", ixgbevf_driver_string,
 		ixgbevf_driver_version);
 
-	pr_info("[2] hello ixgbe!");	
+	pr_info("[1-2] hello ixgbe!");	
 
 	pr_info("ixgbevf: %s\n", ixgbevf_copyright);
-	pr_info("[3] hello ixgbe!");	
+	pr_info("[1-3] hello ixgbe!");	
 
 	ret = pci_register_driver(&ixgbevf_driver);
-	pr_info("[4] hello ixgbe!");	
+	pr_info("[1-4] hello ixgbe!");	
 	return ret;
 }
 
