@@ -5846,16 +5846,22 @@ static struct pci_driver ixgbevf_driver = {
 static int __init ixgbevf_init_module(void)
 {
 	int ret;
+	pr_info("[1] hello ixgbe!");	
 	pr_info("ixgbevf: %s - version %s\n", ixgbevf_driver_string,
 		ixgbevf_driver_version);
 
+	pr_info("[2] hello ixgbe!");	
+
 	pr_info("ixgbevf: %s\n", ixgbevf_copyright);
+	pr_info("[3] hello ixgbe!");	
 
 	ret = pci_register_driver(&ixgbevf_driver);
+	pr_info("[4] hello ixgbe!");	
 	return ret;
 }
 
 module_init(ixgbevf_init_module);
+
 
 /**
  * ixgbevf_exit_module - Driver Exit Cleanup Routine

@@ -30,7 +30,19 @@ route add -net 10.0.0.0 netmask 255.255.255.0 dev ens9
 route add -net 20.0.0.0 netmask 255.255.255.0 dev ens6f1
 ```
 
+## Intel ixgbe driver
+https://sourceforge.net/projects/e1000/files/ixgbevf%20stable/4.9.3/
+
 ## Logs
+
+### 2020-11-10
+To enable drivers,
+- go to ixgbe-<x.x.x>/src/
+- and sudo make install
+	- binutils(https://zoomadmin.com/HowToInstall/UbuntuPackage/binutils-common) : sudo apt install -y binutils-common
+	- install gcc
+- and ixgbe.ko will be on at
+/lib/modules/5.4.0-52-generic/updates/drivers/net/ethernet/intel/ixgbevf/ixgbevf.ko
 
 ### 2020-11-09
 Dive into Kernel
