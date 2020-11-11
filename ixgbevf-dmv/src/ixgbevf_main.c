@@ -5346,7 +5346,7 @@ static int __devinit ixgbevf_probe(struct pci_dev *pdev,
 				   const struct pci_device_id *ent)
 {
 
-    pr_info("[2-1] ixgbevf_probe started");_
+    	pr_info("[2-1] ixgbevf_probe started");
 	struct net_device *netdev;
 	struct ixgbevf_adapter *adapter = NULL;
 #ifdef HAVE_NETDEVICE_MIN_MAX_MTU
@@ -5365,7 +5365,7 @@ static int __devinit ixgbevf_probe(struct pci_dev *pdev,
 #endif /* HAVE_NDO_SET_FEATURES */
     
     // ! dma settings
-    pr_info("[2-2] ixgbevf_probe, enable device and dma setting");_
+    pr_info("[2-2] ixgbevf_probe, enable device and dma setting");
 
 	err = pci_enable_device(pdev);
 	if (err)

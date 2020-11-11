@@ -35,6 +35,12 @@ https://sourceforge.net/projects/e1000/files/ixgbevf%20stable/4.9.3/
 
 ## Logs
 
+### 2020-11-11
+Objective
+1. Test some functions on [Companion Guide](./82599-sr-iov-driver-companion-guide.pdf)
+- ethtools: VF driver is a standard driver
+![ethtools1](./imgs/ethtools1.png)
+
 ### 2020-11-10
 To enable drivers,
 - go to ixgbe-<x.x.x>/src/
