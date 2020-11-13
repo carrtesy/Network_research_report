@@ -35,6 +35,97 @@ https://sourceforge.net/projects/e1000/files/ixgbevf%20stable/4.9.3/
 
 ## Logs
 
+### 2020-11-13
+Thoughts on Further Tasks
+
+1. If SR_IOV is set, and numvfs == 2, 2 interfaces noticable.
+![1113-ifconfig](./imgs/1113_ifconfig.png)
+
+2. Ip setting possible, by netplan
+
+3. **However**, packet is sent to ixgbe interface, not ixgbevf interface
+
+
+So, 
+1. Follow up the process of the vf interface is set to vm interface
+
+2. can be done by: 
+- fix ixgbe driver at host,
+- perform add hw, or something to set vf interface and vfdriver up
+- and follow the kernel ixgbe logs 
+
+Good Luck!
+
+### 2020-11-12
+Objectives:
+1. How PF distinguish VM0, VM1, ... so on
+2. How VF sends message to PF, saying "it's me"
+3. what kind of roles the KVM takes?
+
+Answers:
+1. 
+
+Code 1: at ixgbe_sriov.c, function __ixgbe_enable_sriov
+```
+/* Allocate memory for per VF control structures */
+adapter->vfinfo = kcalloc(num_vfs, sizeof(struct vf_data_storage),
+				  GFP_KERNEL);
+```
+
+Code 2: struct ixgbe_adapter at ixgbe.h
+
+```
+struct ixgbe_adapter {
+...
+	unsigned int num_vfs;
+	unsigned int max_vfs;
+	struct vf_data_storage *vfinfo;
+	int vf_rate_link_speed;
+	struct vf_macvlans vf_mvs;
+	struct vf_macvlans *mv_list;
+...
+}
+```
+
+Code 3: struct vf_data_storage, struct vf_macvlans at ixgbe.h 
+
+```
+struct vf_data_storage {
+	struct pci_dev *vfdev;
+	unsigned char vf_mac_addresses[ETH_ALEN];
+	u16 vf_mc_hashes[IXGBE_MAX_VF_MC_ENTRIES];
+	u16 num_vf_mc_hashes;
+	bool clear_to_send;
+	struct vf_stats vfstats;
+	struct vf_stats last_vfstats;
+	struct vf_stats saved_rst_vfstats;
+	bool pf_set_mac;
+	u16 pf_vlan; /* When set, guest VLAN config not allowed. */
+	u16 pf_qos;
+	u16 tx_rate;
+	u8 spoofchk_enabled;
+#ifdef HAVE_NDO_SET_VF_RSS_QUERY_EN
+	bool rss_query_enabled;
+#endif
+	u8 trusted;
+	int xcast_mode;
+	unsigned int vf_api;
+};
+
+struct vf_macvlans {
+	struct list_head l;
+	int vf;
+	bool free;
+	bool is_macvlan;
+	u8 vf_macvlan[ETH_ALEN];
+};
+```
+
+adapter->vfinfo
+Memory allocation
+
+
+
 ### 2020-11-11
 Objective
 1. Test some functions on [Companion Guide](./82599-sr-iov-driver-companion-guide.pdf)
