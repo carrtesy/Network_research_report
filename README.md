@@ -143,11 +143,7 @@ To enable drivers,
 
 - *Do* 
 ```
-make
-```
-*do not* 
-```
-make install
+	make
 ```
 
 ```
