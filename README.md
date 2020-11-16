@@ -135,7 +135,7 @@ Objective
 ### 2020-11-10
 To enable drivers,
 - go to ixgbe-<x.x.x>/src/
-- and sudo make install
+- and sudo make
 	- binutils(https://zoomadmin.com/HowToInstall/UbuntuPackage/binutils-common) : sudo apt install -y binutils-common
 	- install gcc
 - and ixgbe.ko will be on at
