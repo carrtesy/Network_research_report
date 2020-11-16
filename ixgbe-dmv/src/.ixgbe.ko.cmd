@@ -1,0 +1,1 @@
+cmd_/home/dmk/Network_research_report/ixgbe-dmv/src/ixgbe.ko := ld -r -m elf_x86_64  -z max-page-size=0x200000 -T ./scripts/module-common.lds  --build-id  -o /home/dmk/Network_research_report/ixgbe-dmv/src/ixgbe.ko /home/dmk/Network_research_report/ixgbe-dmv/src/ixgbe.o /home/dmk/Network_research_report/ixgbe-dmv/src/ixgbe.mod.o ;  true

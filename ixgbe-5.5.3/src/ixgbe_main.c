@@ -4194,6 +4194,7 @@ void ixgbe_configure_rx_ring(struct ixgbe_adapter *adapter,
         /* In ESX, RSCCTL configuration is done by on demand */
 	ixgbe_configure_rscctl(adapter, ring);
 
+    // !default pool
 	switch (hw->mac.type) {
 	case ixgbe_mac_82598EB:
 		/*
@@ -6320,6 +6321,7 @@ static void ixgbe_clear_vf_stats_counters(struct ixgbe_adapter *adapter)
 	}
 }
 
+// ! general purpose interrupt enable(gpie)
 static void ixgbe_setup_gpie(struct ixgbe_adapter *adapter)
 {
 	struct ixgbe_hw *hw = &adapter->hw;
@@ -6405,6 +6407,7 @@ static void ixgbe_up_complete(struct ixgbe_adapter *adapter)
 	u32 ctrl_ext;
 
 	ixgbe_get_hw_control(adapter);
+    // ! assignment of queues to pools
 	ixgbe_setup_gpie(adapter);
 
 	if (adapter->flags & IXGBE_FLAG_MSIX_ENABLED)

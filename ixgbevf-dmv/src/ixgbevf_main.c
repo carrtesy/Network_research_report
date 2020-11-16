@@ -5869,7 +5869,6 @@ static int __init ixgbevf_init_module(void)
 
 module_init(ixgbevf_init_module);
 
-
 /**
  * ixgbevf_exit_module - Driver Exit Cleanup Routine
  *

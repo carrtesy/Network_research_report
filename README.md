@@ -33,6 +33,42 @@ route add -net 20.0.0.0 netmask 255.255.255.0 dev ens6f1
 ## Intel ixgbe driver
 https://sourceforge.net/projects/e1000/files/ixgbevf%20stable/4.9.3/
 
+## Driver On and Off
+Dive into Kernel
+
+- check current driver
+
+- Make Kernel File
+```
+	make -J 10
+```
+
+- Disable current(original) driver
+```
+	sudo rmmod ixgbe
+```
+
+- Enable new driver
+```
+	sudo inmod ./ixgbe.ko
+```
+
+- Return to current driver
+```
+	sudo modeprobe ixgbe
+```
+
+## Check system logs
+1.
+```
+    dmesg
+```
+2. 
+```
+    sudo vi /var/log/syslog 
+```
+
+
 ## Logs
 
 ### 2020-11-13
