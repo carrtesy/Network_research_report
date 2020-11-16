@@ -68,8 +68,16 @@ Dive into Kernel
     sudo vi /var/log/syslog 
 ```
 
+## Extract Logs
+copy n lines at the bottom
+```
+tail -n +[start_line] [filename] > [target_file]
+```
 
 ## Logs
+
+### 2020-11-16
+system logs
 
 ### 2020-11-13
 Thoughts on Further Tasks
