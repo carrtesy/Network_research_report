@@ -141,6 +141,23 @@ To enable drivers,
 - and ixgbe.ko will be on at
 /lib/modules/5.4.0-52-generic/updates/drivers/net/ethernet/intel/ixgbevf/ixgbevf.ko
 
+- *Do* 
+```
+make
+```
+*do not* 
+```
+make install
+```
+
+```
+	sudo rmmod ixgbe
+```
+
+```
+	sudo inmod ./ixgbe.ko
+```
+
 ### 2020-11-09
 Dive into Kernel
 
