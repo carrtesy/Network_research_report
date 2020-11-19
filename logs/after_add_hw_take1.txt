@@ -1,0 +1,31 @@
+[262330.138798] audit: type=1400 audit(1605772849.885:87): apparmor="STATUS" operation="profile_load" profile="unconfined" name="libvirt-8d6ed7b3-97b0-4f3d-a1ca-1849c9ec05f1" pid=31042 comm="apparmor_parser"
+[262330.232808] ixgbe 0000:03:00.1 ens6f1: VF Reset msg received from vf 0
+[262330.252758] ixgbe 0000:03:00.1 ens6f1: VF 0 requested invalid api version 6
+[262330.312818] ixgbevf 0000:03:10.1 enp3s16f1 (unregistered): ixgbevf_remove: Remove complete
+[262330.461538] audit: type=1400 audit(1605772850.209:88): apparmor="STATUS" operation="profile_replace" profile="unconfined" name="libvirt-8d6ed7b3-97b0-4f3d-a1ca-1849c9ec05f1" pid=31058 comm="apparmor_parser"
+[262330.603307] audit: type=1400 audit(1605772850.349:89): apparmor="STATUS" operation="profile_replace" profile="unconfined" name="libvirt-8d6ed7b3-97b0-4f3d-a1ca-1849c9ec05f1" pid=31061 comm="apparmor_parser"
+[262330.744422] audit: type=1400 audit(1605772850.489:90): apparmor="STATUS" operation="profile_replace" info="same as current profile, skipping" profile="unconfined" name="libvirt-8d6ed7b3-97b0-4f3d-a1ca-1849c9ec05f1" pid=31064 comm="apparmor_parser"
+[262330.888236] audit: type=1400 audit(1605772850.633:91): apparmor="STATUS" operation="profile_replace" profile="unconfined" name="libvirt-8d6ed7b3-97b0-4f3d-a1ca-1849c9ec05f1" pid=31083 comm="apparmor_parser"
+[262331.209509] vfio-pci 0000:03:10.1: enabling device (0000 -> 0002)
+[262335.305327] ixgbe 0000:03:00.1 ens6f1: Unhandled Msg 00000000
+[262337.037911] ixgbe 0000:03:00.1 ens6f1: VF Reset msg received from vf 0
+[262337.048358] ixgbe 0000:03:00.1 ens6f1: VF 0 requested invalid api version 5
+[262417.812451] audit: type=1400 audit(1605772937.560:92): apparmor="STATUS" operation="profile_remove" profile="unconfined" name="libvirt-8d6ed7b3-97b0-4f3d-a1ca-1849c9ec05f1" pid=31936 comm="apparmor_parser"
+[262417.814642] [2-1] ixgbevf_probe started
+[262417.814642] [2-2] ixgbevf_probe, enable device and dma setting
+[262417.814647] ixgbevf 0000:03:10.1: enabling device (0000 -> 0002)
+[262417.814657] [2-3] ixgbevf_probe, allocate etherdev
+[262417.885594] ixgbe 0000:03:00.1 ens6f1: Unhandled Msg 00000000
+[262417.905280] ixgbevf 0000:03:10.1: PF still in reset state.  Is the PF interface up?
+[262417.905283] ixgbevf 0000:03:10.1: Assigning random MAC address
+[262417.905397] ixgbevf 0000:03:10.1: Multiqueue Disabled: Rx Queue count = 1, Tx Queue count = 1 XDP Queue count 0
+[262417.905842] ixgbevf 0000:03:10.1: 6a:3c:3b:1a:c7:7c
+[262417.905845] ixgbevf 0000:03:10.1 eth0: ixgbevf_probe: Intel(R) 82599 Virtual Function
+[262417.905848] ixgbevf 0000:03:10.1 eth0: ixgbevf_probe: GRO is enabled
+[262417.905851] ixgbevf 0000:03:10.1 eth0: ixgbevf_probe: Intel(R) 10GbE PCI Express Virtual Function Driver
+[262417.910257] ixgbevf 0000:03:10.1 enp3s16f1: renamed from eth0
+[262418.033302] ixgbe 0000:03:00.1 ens6f1: VF Reset msg received from vf 0
+[262418.053274] ixgbe 0000:03:00.1 ens6f1: VF 0 requested invalid api version 6
+[262418.054380] DMAR: 64bit 0000:03:10.1 uses identity mapping
+[262418.072378] IPv6: ADDRCONF(NETDEV_UP): enp3s16f1: link is not ready
+[262418.080484] IPv6: ADDRCONF(NETDEV_UP): enp3s16f1: link is not ready

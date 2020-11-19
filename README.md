@@ -76,6 +76,10 @@ tail -n +[start_line] [filename] > [target_file]
 
 ## Logs
 
+### 2020-11-19
+dmseg logs
+[logs](./logs/after_add_hw_take1.txt)
+
 ### 2020-11-16
 system logs
 
