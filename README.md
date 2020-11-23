@@ -76,6 +76,17 @@ tail -n +[start_line] [filename] > [target_file]
 
 ## Logs
 
+### 2020-11-23
+Doubt: in vm log, but not in host vf setup
+```
+	ixgbevf_main.c:3855:    e_info(drv, "NIC Link is Up %s\n", speed_str);
+```
+
+ixgbevf_watchdog_link_is up @ ixgbevf_main.c
+ixgbevf_watchdog_subtask @ same
+ixgbevf_service_task @ same
+ixgbevf_probe @ same
+
 ### 2020-11-19
 dmseg logs
 [dmesg logs](./logs/after_add_hw_take1.txt)
