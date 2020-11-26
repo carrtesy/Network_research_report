@@ -76,6 +76,125 @@ tail -n +[start_line] [filename] > [target_file]
 
 ## Logs
 
+### 2020-11-24
+logs
+1. after sriov add
+```
+[  956.335267] [1-1] hello ixgbevf!                                                                                                                                                                        
+[  956.335270] ixgbevf: Intel(R) 10GbE PCI Express Virtual Function Driver - version 4.9.3
+[  956.335271] [1-2] hello ixgbevf!
+[  956.335272] ixgbevf: Copyright(c) 1999 - 2020 Intel Corporation.
+[  956.335273] [1-3] hello ixgbevf!
+[  956.335341] [1-4] hello ixgbevf!
+```
+
+2. after sriov setting by echo 2 > [path]
+
+```
+[ 1105.137609] ixgbe 0000:03:00.1: SR-IOV enabled with 2 VFs
+[ 1105.137613] ixgbe 0000:03:00.1: configure port vlans to keep your VFs secure
+[ 1105.137753] ixgbe 0000:03:00.1: removed PHC on ens6f1
+[ 1105.204340] ixgbe 0000:03:00.1: Multiqueue Enabled: Rx Queue count = 4, Tx Queue count = 4 XDP Queue count = 0
+[ 1105.222534] ixgbe 0000:03:00.1: registered PHC device on ens6f1
+[ 1105.392372] ixgbe 0000:03:00.1 ens6f1: detected SFP+: 4
+[ 1105.435949] pci 0000:03:10.1: [8086:10ed] type 00 class 0x020000
+[ 1105.436200] iommu: Adding device 0000:03:10.1 to group 36
+[ 1105.436391] [2-1] ixgbevf_probe started
+[ 1105.436393] [2-2] ixgbevf_probe, enable device and dma setting
+[ 1105.436402] ixgbevf 0000:03:10.1: enabling device (0000 -> 0002)
+[ 1105.436417] [2-3] ixgbevf_probe, allocate etherdev
+[ 1105.507968] ixgbe 0000:03:00.1 ens6f1: VF Reset msg received from vf 0
+[ 1105.531949] ixgbe 0000:03:00.1 ens6f1: VF 0 requested invalid api version 6
+[ 1105.532937] ixgbevf 0000:03:10.1: MAC address not assigned by administrator.
+[ 1105.532940] ixgbevf 0000:03:10.1: Assigning random MAC address
+[ 1105.532943] [2-4] init work here
+[ 1105.532944] [2-5] init interrupt scheme here
+[ 1105.533569] ixgbevf 0000:03:10.1: Multiqueue Enabled: Rx Queue count = 2, Tx Queue count = 2 XDP Queue count 0
+[ 1105.533992] [2-6] netdev name: eth0
+[ 1105.534001] ixgbevf 0000:03:10.1: 62:70:94:d5:66:54
+[ 1105.534004] ixgbevf 0000:03:10.1 eth0: ixgbevf_probe: Intel(R) 82599 Virtual Function
+[ 1105.534006] ixgbevf 0000:03:10.1 eth0: ixgbevf_probe: GRO is enabled
+[ 1105.534008] ixgbevf 0000:03:10.1 eth0: ixgbevf_probe: Intel(R) 10GbE PCI Express Virtual Function Driver
+[ 1105.534069] pci 0000:03:10.3: [8086:10ed] type 00 class 0x020000
+[ 1105.534265] iommu: Adding device 0000:03:10.3 to group 37
+[ 1105.534386] [2-1] ixgbevf_probe started
+[ 1105.534388] [2-2] ixgbevf_probe, enable device and dma setting
+[ 1105.534397] ixgbevf 0000:03:10.3: enabling device (0000 -> 0002)
+[ 1105.534410] [2-3] ixgbevf_probe, allocate etherdev
+[ 1105.538272] ixgbevf 0000:03:10.1 enp3s16f1: renamed from eth0
+[ 1105.594334] ixgbe 0000:03:00.1 ens6f1: NIC Link is Up 10 Gbps, Flow Control: RX/TX
+[ 1105.594698] DMAR: 64bit 0000:03:10.1 uses identity mapping
+[ 1105.608025] ixgbe 0000:03:00.1 ens6f1: VF Reset msg received from vf 1
+[ 1105.626843] ixgbevf 0000:03:10.1 enp3s16f1: NIC Link is Up 10 Gbps
+[ 1105.628395] IPv6: ADDRCONF(NETDEV_UP): enp3s16f1: link is not ready
+[ 1105.628492] IPv6: ADDRCONF(NETDEV_CHANGE): enp3s16f1: link becomes ready
+[ 1105.631905] ixgbe 0000:03:00.1 ens6f1: VF 1 requested invalid api version 6
+[ 1105.632891] ixgbevf 0000:03:10.3: MAC address not assigned by administrator.
+[ 1105.632893] ixgbevf 0000:03:10.3: Assigning random MAC address
+[ 1105.632894] [2-4] init work here
+[ 1105.632894] [2-5] init interrupt scheme here
+[ 1105.633473] ixgbevf 0000:03:10.3: Multiqueue Enabled: Rx Queue count = 2, Tx Queue count = 2 XDP Queue count 0
+[ 1105.634981] [2-6] netdev name: eth0
+[ 1105.634988] ixgbevf 0000:03:10.3: 26:6a:60:00:ed:3f
+[ 1105.634990] ixgbevf 0000:03:10.3 eth0: ixgbevf_probe: Intel(R) 82599 Virtual Function
+[ 1105.634991] ixgbevf 0000:03:10.3 eth0: ixgbevf_probe: GRO is enabled
+[ 1105.634993] ixgbevf 0000:03:10.3 eth0: ixgbevf_probe: Intel(R) 10GbE PCI Express Virtual Function Driver
+[ 1105.641893] ixgbevf 0000:03:10.3 enp3s16f3: renamed from eth0
+
+```
+
+3. adding HW
+
+nothing
+
+4. VM Power On
+```
+[ 1820.697873] audit: type=1400 audit(1606200502.923:56): apparmor="STATUS" operation="profile_load" profile="unconfined" name="libvirt-8d6ed7b3-97b0-4f3d-a1ca-1849c9ec05f1" pid=15693 comm="apparmor_parser"
+[ 1820.717488] VFIO - User Level meta-driver version: 0.3
+[ 1820.825811] ixgbe 0000:03:00.1 ens6f1: VF Reset msg received from vf 0
+[ 1820.845824] ixgbe 0000:03:00.1 ens6f1: VF 0 requested invalid api version 6
+[ 1820.949867] ixgbevf 0000:03:10.1 enp3s16f1 (unregistered): ixgbevf_remove: Remove complete
+[ 1821.098223] audit: type=1400 audit(1606200503.323:57): apparmor="STATUS" operation="profile_replace" profile="unconfined" name="libvirt-8d6ed7b3-97b0-4f3d-a1ca-1849c9ec05f1" pid=15723 comm="apparmor_parser"
+[ 1821.236798] audit: type=1400 audit(1606200503.459:58): apparmor="STATUS" operation="profile_replace" profile="unconfined" name="libvirt-8d6ed7b3-97b0-4f3d-a1ca-1849c9ec05f1" pid=15726 comm="apparmor_parser"
+[ 1821.391379] audit: type=1400 audit(1606200503.615:59): apparmor="STATUS" operation="profile_replace" info="same as current profile, skipping" profile="unconfined" name="libvirt-8d6ed7b3-97b0-4f3d-a1ca-1849c9ec05f1" pid=15729 comm="apparmor_parser"
+[ 1821.587573] audit: type=1400 audit(1606200503.811:60): apparmor="STATUS" operation="profile_replace" profile="unconfined" name="libvirt-8d6ed7b3-97b0-4f3d-a1ca-1849c9ec05f1" pid=15755 comm="apparmor_parser"
+[ 1821.665303] L1TF CPU bug present and SMT on, data leak possible. See CVE-2018-3646 and https://www.kernel.org/doc/html/latest/admin-guide/l1tf.html for details.
+[ 1821.962662] vfio-pci 0000:03:10.1: enabling device (0000 -> 0002)
+[ 1822.234451] IPv6: ADDRCONF(NETDEV_UP): macvtap0: link is not ready
+[ 1825.978150] ixgbe 0000:03:00.1 ens6f1: Unhandled Msg 00000000
+[ 1828.191398] ixgbe 0000:03:00.1 ens6f1: VF Reset msg received from vf 0
+[ 1828.201791] ixgbe 0000:03:00.1 ens6f1: VF 0 requested invalid api version 5
+[ 1831.288395] snd_hda_intel 0000:00:1b.0: IRQ timing workaround is activated for card #0. Suggest a bigger bdl_pos_adj.
+
+```
+5. dmesg at VM
+```
+[    1.076366] ixgbevf: Intel(R) 10 Gigabit PCI Express Virtual Function Network Driver - version 4.1.0-k
+[    1.076366] ixgbevf: Copyright (c) 2009 - 2018 Intel Corporation.
+[    1.091285] ixgbevf 0000:00:09.0: PF still in reset state.  Is the PF interface up?
+[    1.091286] ixgbevf 0000:00:09.0: Assigning random MAC address
+[    1.127167] virtio_net virtio0 ens3: renamed from eth0
+[    1.127956] usb 1-1: new high-speed USB device number 2 using ehci-pci
+[    1.130631] ixgbevf 0000:00:09.0: 02:12:b7:f6:df:25
+[    1.130632] ixgbevf 0000:00:09.0: MAC: 1
+[    1.130633] ixgbevf 0000:00:09.0: Intel(R) 82599 Virtual Function
+[    1.131585] ixgbevf 0000:00:09.0 ens9: renamed from eth0
+
+```
+
+
+
+### 2020-11-23
+Doubt: in vm log, but not in host vf setup
+```
+	ixgbevf_main.c:3855:    e_info(drv, "NIC Link is Up %s\n", speed_str);
+```
+
+ixgbevf_watchdog_link_is up @ ixgbevf_main.c
+ixgbevf_watchdog_subtask @ same
+ixgbevf_service_task @ same
+ixgbevf_probe @ same
+
 ### 2020-11-19
 dmseg logs
 [dmesg logs](./logs/after_add_hw_take1.txt)
