@@ -1,0 +1,50 @@
+/sys/bus/pci/devices/0000:03:10.1
+├── ari_enabled
+├── broken_parity_status
+├── class
+├── config
+├── consistent_dma_mask_bits
+├── current_link_speed
+├── current_link_width
+├── d3cold_allowed
+├── device
+├── dma_mask_bits
+├── *driver -> ../../../../bus/pci/drivers/vfio-pci
+├── driver_override
+├── enable
+├── iommu -> ../../../virtual/iommu/dmar1
+├── iommu_group -> ../../../../kernel/iommu_groups/36
+├── irq
+├── local_cpulist
+├── local_cpus
+├── max_link_speed
+├── max_link_width
+├── modalias
+├── msi_bus
+├── msi_irqs
+│   ├── 74
+│   └── 75
+├── numa_node
+├── physfn -> ../0000:03:00.1
+├── power
+│   ├── async
+│   ├── autosuspend_delay_ms
+│   ├── control
+│   ├── runtime_active_kids
+│   ├── runtime_active_time
+│   ├── runtime_enabled
+│   ├── runtime_status
+│   ├── runtime_suspended_time
+│   └── runtime_usage
+├── reset
+├── resource
+├── resource0
+├── resource3
+├── revision
+├── subsystem -> ../../../../bus/pci
+├── subsystem_device
+├── subsystem_vendor
+├── uevent
+└── vendor
+
+7 directories, 40 files

@@ -3891,10 +3891,14 @@ static void ixgbevf_watchdog_subtask(struct ixgbevf_adapter *adapter)
 
 	ixgbevf_watchdog_update_link(adapter);
 
-	if (adapter->link_up)
+	if (adapter->link_up){
+        //pr_info("[!] watchdog link is up");
 		ixgbevf_watchdog_link_is_up(adapter);
-	else
+    }
+	else {
+        //pr_info("[!] watchdog link is down");
 		ixgbevf_watchdog_link_is_down(adapter);
+    }
 
 	ixgbevf_update_stats(adapter);
 }
@@ -5346,7 +5350,7 @@ static int __devinit ixgbevf_probe(struct pci_dev *pdev,
 				   const struct pci_device_id *ent)
 {
 
-    	pr_info("[2-1] ixgbevf_probe started");
+    pr_info("[2-1] ixgbevf_probe started");
 	struct net_device *netdev;
 	struct ixgbevf_adapter *adapter = NULL;
 #ifdef HAVE_NETDEVICE_MIN_MAX_MTU
@@ -5573,17 +5577,21 @@ static int __devinit ixgbevf_probe(struct pci_dev *pdev,
 		err = -EIO;
 		goto err_sw_init;
 	}
+    pr_info("[2-4] init work here");
 	INIT_WORK(&adapter->service_task, ixgbevf_service_task);
 	set_bit(__IXGBEVF_SERVICE_INITED, &adapter->state);
 	clear_bit(__IXGBEVF_SERVICE_SCHED, &adapter->state);
 
-	err = ixgbevf_init_interrupt_scheme(adapter);
+	pr_info("[2-5] init interrupt scheme here");
+    err = ixgbevf_init_interrupt_scheme(adapter);
 	if (err)
 		goto err_sw_init;
 
 	strscpy(netdev->name, "eth%d", sizeof(netdev->name));
 
 	err = register_netdev(netdev);
+	pr_info("[2-6] netdev name: %s\n", netdev->name);
+    //DPRINTK(PROBE, INFO, "[2-6] netdev name: %s\n", netdev->name);
 	if (err)
 		goto err_register;
 
