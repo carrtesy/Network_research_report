@@ -76,6 +76,68 @@ tail -n +[start_line] [filename] > [target_file]
 
 ## Logs
 
+### 2020-11-26
+On PCI Driver : https://www.oreilly.com/library/view/linux-device-drivers/0596005903/ch12.html
+
+Tree'd before VM boot up [logs](./logs/treed_before_sriov_boot.txt)
+```
+tree /sys/bus/pci/devices/0000\:03\:10.1
+```
+
+
+
+Tree'd after VM boot up [logs](./logs/treed_after_sriov_boot.txt)
+```
+tree /sys/bus/pci/devices/0000\:03\:10.1
+```
+
+
+In vm
+```
+vm0@vm0-Standard-PC-i440FX-PIIX-1996:~$ lspci
+00:00.0 Host bridge: Intel Corporation 440FX - 82441FX PMC [Natoma] (rev 02)
+00:01.0 ISA bridge: Intel Corporation 82371SB PIIX3 ISA [Natoma/Triton II]
+00:01.1 IDE interface: Intel Corporation 82371SB PIIX3 IDE [Natoma/Triton II]
+00:01.3 Bridge: Intel Corporation 82371AB/EB/MB PIIX4 ACPI (rev 03)
+00:02.0 VGA compatible controller: Red Hat, Inc. QXL paravirtual graphic card (rev 04)
+00:03.0 Ethernet controller: Realtek Semiconductor Co., Ltd. RTL-8100/8101L/8139 PCI Fast Ethernet Adapter (rev 20)
+00:04.0 Audio device: Intel Corporation 82801FB/FBM/FR/FW/FRW (ICH6 Family) High Definition Audio Controller (rev 01)
+00:05.0 USB controller: Intel Corporation 82801I (ICH9 Family) USB UHCI Controller #1 (rev 03)
+00:05.1 USB controller: Intel Corporation 82801I (ICH9 Family) USB UHCI Controller #2 (rev 03)
+00:05.2 USB controller: Intel Corporation 82801I (ICH9 Family) USB UHCI Controller #3 (rev 03)
+00:05.7 USB controller: Intel Corporation 82801I (ICH9 Family) USB2 EHCI Controller #1 (rev 03)
+00:06.0 Communication controller: Red Hat, Inc. Virtio console
+00:07.0 SCSI storage controller: Red Hat, Inc. Virtio block device
+00:08.0 Unclassified device [00ff]: Red Hat, Inc. Virtio memory balloon
+00:09.0 Ethernet controller: Intel Corporation 82599 Ethernet Controller Virtual Function (rev 01)
+```
+
+```
+vm0@vm0-Standard-PC-i440FX-PIIX-1996:/sys/bus/pci/devices$ cd 0000\:00\:09.0
+vm0@vm0-Standard-PC-i440FX-PIIX-1996:/sys/bus/pci/devices/0000:00:09.0$ l
+ari_enabled               device           local_cpulist   numa_node  revision
+broken_parity_status      dma_mask_bits    local_cpus      power/     subsystem@
+class                     driver@          max_link_speed  remove     subsystem_device
+config                    driver_override  max_link_width  rescan     subsystem_vendor
+consistent_dma_mask_bits  enable           modalias        reset      uevent
+current_link_speed        firmware_node@   msi_bus         resource   vendor
+current_link_width        irq              msi_irqs/       resource0
+d3cold_allowed            link/            net/            resource3
+vm0@vm0-Standard-PC-i440FX-PIIX-1996:/sys/bus/pci/devices/0000:00:09.0$ cd driver/
+0000:00:09.0/ module/       
+vm0@vm0-Standard-PC-i440FX-PIIX-1996:/sys/bus/pci/devices/0000:00:09.0$ cd driver/
+0000:00:09.0/ module/       
+vm0@vm0-Standard-PC-i440FX-PIIX-1996:/sys/bus/pci/devices/0000:00:09.0$ l
+ari_enabled               device           local_cpulist   numa_node  revision
+broken_parity_status      dma_mask_bits    local_cpus      power/     subsystem@
+class                     driver@          max_link_speed  remove     subsystem_device
+config                    driver_override  max_link_width  rescan     subsystem_vendor
+consistent_dma_mask_bits  enable           modalias        reset      uevent
+current_link_speed        firmware_node@   msi_bus         resource   vendor
+current_link_width        irq              msi_irqs/       resource0
+d3cold_allowed            link/            net/            resource3
+```
+
 ### 2020-11-24
 logs
 1. after sriov add
