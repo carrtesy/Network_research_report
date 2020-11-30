@@ -76,6 +76,126 @@ tail -n +[start_line] [filename] > [target_file]
 
 ## Logs
 
+### 2020-11-30
+
+Q1. What is "ixgbevf 0000:03:10.1: enabling device (0000 -> 0002)"
+
+Can be figured in https://docs.huihoo.com/doxygen/linux/kernel/3.7/setup-res_8c_source.html#l00320
+```
+int pci_enable_resources(struct pci_dev *dev, int mask)
+  321 {
+  322     u16 cmd, old_cmd;
+  323     int i;
+  324     struct resource *r;
+  325 
+  326     pci_read_config_word(dev, PCI_COMMAND, &cmd);
+  327     old_cmd = cmd;
+  328 
+  329     for (i = 0; i < PCI_NUM_RESOURCES; i++) {
+  330         if (!(mask & (1 << i)))
+  331             continue;
+  332 
+  333         r = &dev->resource[i];
+  334 
+  335         if (!(r->flags & (IORESOURCE_IO | IORESOURCE_MEM)))
+  336             continue;
+  337         if ((i == PCI_ROM_RESOURCE) &&
+  338                 (!(r->flags & IORESOURCE_ROM_ENABLE)))
+  339             continue;
+  340 
+  341         if (!r->parent) {
+  342             dev_err(&dev->dev, "device not available "
+  343                 "(can't reserve %pR)\n", r);
+  344             return -EINVAL;
+  345         }
+  346 
+  347         if (r->flags & IORESOURCE_IO)
+  348             cmd |= PCI_COMMAND_IO;
+  349         if (r->flags & IORESOURCE_MEM)
+  350             cmd |= PCI_COMMAND_MEMORY;
+  351     }
+  352 
+  353     if (cmd != old_cmd) {
+  354         dev_info(&dev->dev, "enabling device (%04x -> %04x)\n",
+  355              old_cmd, cmd);
+  356         pci_write_config_word(dev, PCI_COMMAND, cmd);
+  357     }
+  358     return 0;
+  359 }
+```
+
+```
+   32 #define PCI_COMMAND     0x04    /* 16 bits */
+   33 #define  PCI_COMMAND_IO     0x1 /* Enable response in I/O space */
+   34 #define  PCI_COMMAND_MEMORY 0x2 /* Enable response in Memory space */
+```
+
+Q2. MAC: %d message comes from: https://github.com/torvalds/linux/blob/master/drivers/net/ethernet/intel/ixgbevf/ixgbevf_main.c
+ixgbevf_main, ixgbe_probe
+```
+/* print the VF info */
+	dev_info(&pdev->dev, "%pM\n", netdev->dev_addr);
+	dev_info(&pdev->dev, "MAC: %d\n", hw->mac.type);
+
+```
+
+Breakthrough: vfio-pci
+
+before vm boot
+```
+$ sudo lspci -k
+03:10.1 Ethernet controller: Intel Corporation 82599 Ethernet Controller Virtual Function (rev 01)
+        Subsystem: Intel Corporation 82599 Ethernet Controller Virtual Function
+        Kernel driver in use: ixgbevf
+        Kernel modules: ixgbevf
+03:10.3 Ethernet controller: Intel Corporation 82599 Ethernet Controller Virtual Function (rev 01)
+        Subsystem: Intel Corporation 82599 Ethernet Controller Virtual Function
+        Kernel driver in use: ixgbevf
+        Kernel modules: ixgbevf
+
+```
+
+after vm boot
+```
+$ sudo lspci -k
+03:10.1 Ethernet controller: Intel Corporation 82599 Ethernet Controller Virtual Function (rev 01)
+        Subsystem: Intel Corporation 82599 Ethernet Controller Virtual Function
+        Kernel driver in use: vfio-pci
+        Kernel modules: ixgbevf
+03:10.3 Ethernet controller: Intel Corporation 82599 Ethernet Controller Virtual Function (rev 01)
+        Subsystem: Intel Corporation 82599 Ethernet Controller Virtual Function
+        Kernel driver in use: ixgbevf
+        Kernel modules: ixgbevf
+```
+
+pci device setup: https://www.nepirity.com/blog/kvm-gpu-passthrough/
+
+```
+$ lspci -nn
+03:00.0 Ethernet controller [0200]: Intel Corporation 82599ES 10-Gigabit SFI/SFP+ Network Connection [8086:10fb] (rev 01)                                            
+03:00.1 Ethernet controller [0200]: Intel Corporation 82599ES 10-Gigabit SFI/SFP+ Network Connection [8086:10fb] (rev 01)                                                     
+03:10.1 Ethernet controller [0200]: Intel Corporation 82599 Ethernet Controller Virtual Function [8086:10ed] (rev 01)                                                           
+03:10.3 Ethernet controller [0200]: Intel Corporation 82599 Ethernet Controller Virtual Function [8086:10ed] (rev 01)
+```
+
+/etc/modprobe.d/vfio.conf 
+```
+options vfio-pci ids=8086:10ed          
+```
+
+/etc/modules-load.d/vfio-pci.conf
+```
+vfio-pci
+```
+
+Assigning devices with vt-d: http://www.linux-kvm.org/page/How_to_assign_devices_with_VT-d_in_KVM
+
+
+-> Other task: interface is down, after this!
+
+TMR: check how to create interface with vfio
+
+
 ### 2020-11-26
 On PCI Driver : https://www.oreilly.com/library/view/linux-device-drivers/0596005903/ch12.html
 
