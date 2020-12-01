@@ -74,7 +74,159 @@ copy n lines at the bottom
 tail -n +[start_line] [filename] > [target_file]
 ```
 
+## Unbind, and link
+- locate module
+```
+$ modprobe vfio_pci
+```
+
+- Unbind, and link
+1. check pci device
+```
+$ lspci -nn
+03:10.1 Ethernet controller [0200]: Intel Corporation 82599 Ethernet Controller Virtual Function [8086:10ed] (rev 01)
+
+```
+
+2. new id (just once, maybe?)
+```
+sudo echo "8086 10ed" > /sys/bus/pci/drivers/ixgbevf/new_id
+```
+
+3. unbind
+```
+echo "0000:03:10.1" > /sys/bus/pci/devices/0000\:03\:10.1/driver/unbind
+```
+
+4. bind
+```
+echo "0000:03:10.1" > /sys/bus/pci/drivers/vfio-pci/bind
+```
+
 ## Logs
+
+### 2020-12-01
+
+Current Status
+
+-Interface exists: enp3s16f1
+
+```
+dmk@ckjung:~$ ifconfig
+
+(...)
+enp3s16f1: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
+        inet 20.0.0.3  netmask 255.255.255.0  broadcast 20.0.0.255
+        inet6 fe80::a44e:84ff:fe53:2164  prefixlen 64  scopeid 0x20<link>
+        ether a6:4e:84:53:21:64  txqueuelen 1000  (Ethernet)
+        RX packets 2  bytes 228 (228.0 B)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 45  bytes 5436 (5.4 KB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+  
+(...)
+
+```
+
+```
+$ sudo lspci -k
+03:10.1 Ethernet controller: Intel Corporation 82599 Ethernet Controller Virtual Function (rev 01) 
+        Subsystem: Intel Corporation 82599 Ethernet Controller Virtual Function                     
+        Kernel driver in use: ixgbevf                                                        
+        Kernel modules: ixgbevf    
+```
+
+- locate module
+```
+$ modprobe vfio_pci
+```
+
+- Unbind, and link
+1. check pci device
+```
+$ lspci -nn
+03:10.1 Ethernet controller [0200]: Intel Corporation 82599 Ethernet Controller Virtual Function [8086:10ed] (rev 01)
+
+```
+
+2. new id (just once, maybe?)
+```
+sudo echo "8086 10ed" > /sys/bus/pci/drivers/ixgbevf/new_id
+```
+
+3. unbind
+```
+echo "0000:03:10.1" > /sys/bus/pci/devices/0000\:03\:10.1/driver/unbind
+```
+
+4. bind
+```
+echo "0000:03:10.1" > /sys/bus/pci/drivers/vfio-pci/bind
+```
+
+
+- Interface Gone
+```
+$ ifconfig
+
+(None)
+```
+
+```
+03:10.1 Ethernet controller: Intel Corporation 82599 Ethernet Controller Virtual Function (rev 01)                                 
+        Subsystem: Intel Corporation 82599 Ethernet Controller Virtual Function                                      
+        Kernel driver in use: vfio-pci                                                                                             
+        Kernel modules: ixgbevf     
+```
+
+- dmesg after it
+```
+[  235.138541] ixgbe 0000:03:00.1 ens6f1: VF Reset msg received from vf 0
+[  235.158514] ixgbe 0000:03:00.1 ens6f1: VF 0 requested invalid api version 6
+[  235.542523] ixgbevf 0000:03:10.1 enp3s16f1 (unregistered): ixgbevf_remove: Remove complete
+[  258.094588] VFIO - User Level meta-driver version: 0.3
+[  258.115382] vfio_pci: add [8086:10ed[ffff:ffff]] class 0x000000/00000000
+```
+Wrap Up
+
+VFIO resource: 
+- http://www.linux-kvm.org/images/5/54/01x04-Alex_Williamson-An_Introduction_to_PCI_Device_Assignment_with_VFIO.pdf
+- https://www.kernel.org/doc/Documentation/vfio.txt
+
+1. IOMMU GROUP
+```
+IOMMU Group 30:                                                                                                                                                                                            
+        03:00.0 Ethernet controller [0200]: Intel Corporation 82599ES 10-Gigabit SFI/SFP+ Network Connection [8086:10fb] (rev 01)                                                                          
+IOMMU Group 31:                                                                                                                                                                                            
+        03:00.1 Ethernet controller [0200]: Intel Corporation 82599ES 10-Gigabit SFI/SFP+ Network Connection [8086:10fb] (rev 01) 
+IOMMU Group 36:                                                                                                                      
+        03:10.1 Ethernet controller [0200]: Intel Corporation 82599 Ethernet Controller Virtual Function [8086:10ed] (rev 01)                                
+IOMMU Group 37:                                                                                                    
+        03:10.3 Ethernet controller [0200]: Intel Corporation 82599 Ethernet Controller Virtual Function [8086:10ed] (rev 01)
+
+```
+
+2. Container Creation
+```
+open /dev/vfio/vfio
+```
+
+3. Group Ready
+By unbinding the device from the host driver and binding it to a VFIO driver, a new VFIO group will appear for the group as /dev/vfio/$GROUP
+
+```
+dmk@ckjung:~$ ls /dev/vfio/
+36  vfio
+```
+
+4. Access code
+https://www.kernel.org/doc/Documentation/vfio.txt
+
+Graphics: http://www.linux-kvm.org/images/5/54/01x04-Alex_Williamson-An_Introduction_to_PCI_Device_Assignment_with_VFIO.pdf
+
+
+
+
 
 ### 2020-11-30
 
