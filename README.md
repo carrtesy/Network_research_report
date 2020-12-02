@@ -135,6 +135,8 @@ Q4. Vt-d?
 
 Virtualization Technology for I/O devices.
 
+Q5. Qemu side?
+https://terenceli.github.io/%E6%8A%80%E6%9C%AF/2018/09/06/qemu-interrupt-emulation
 
 ### 2020-12-01
 
