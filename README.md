@@ -125,9 +125,15 @@ Tree'd after vfio [logs](./logs/treed_after_vfio.txt)
 msi_irqs -> '0'
 ```
 
+after boot - same
+and macvtap on.
 
+Q3. What is IRQ?
+Interrupt ReQuests
 
-(vfio-pci)
+Q4. Vt-d?
+
+Virtualization Technology for I/O devices.
 
 
 ### 2020-12-01
