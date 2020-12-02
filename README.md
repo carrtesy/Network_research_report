@@ -105,6 +105,31 @@ echo "0000:03:10.1" > /sys/bus/pci/drivers/vfio-pci/bind
 
 ## Logs
 
+### 2020-12-02
+Q1. Vm shell : nothing
+ bc, IOMMU is set by VT-d?
+
+Q2. Why IRQ is diff?
+i.e.
+(ixgbevf module)
+Tree'd after VM boot up [logs](./logs/treed_after_sriov_boot.txt)
+Has 
+```
+msi_irqs
+- 72 -> 'msix' 
+- 73 -> 'msix'
+```
+
+Tree'd after vfio [logs](./logs/treed_after_vfio.txt)
+```
+msi_irqs -> '0'
+```
+
+
+
+(vfio-pci)
+
+
 ### 2020-12-01
 
 Current Status
