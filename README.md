@@ -96,7 +96,7 @@ $ lspci -nn
 
 2. new id (just once, maybe?)
 ```
-sudo echo "8086 10ed" > /sys/bus/pci/drivers/ixgbevf/new_id
+sudo echo "8086 10ed" > /sys/bus/pci/drivers/vfio-pci/new_id
 ```
 
 3. unbind
