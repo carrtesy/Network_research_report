@@ -105,6 +105,14 @@ echo "0000:03:10.1" > /sys/bus/pci/drivers/vfio-pci/bind
 
 ## Logs
 
+### 2020-12-04
+Q: How does Qemu create interface
+What's now
+![img1](./imgs/qemu-now.jpg)
+What should be
+![img2](./imgs/obj.jpg)
+
+
 ### 2020-12-02
 Q1. Vm shell : nothing
  bc, IOMMU is set by VT-d?
