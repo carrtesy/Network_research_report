@@ -120,6 +120,18 @@ Q: How does Qemu create interface?
 - What should be
 ![img2](./imgs/obj.jpg)
 
+Questions to Answer
+Q1. sources for 'what qemu does'.
+(1) vfio pci setting.
+(2) IRQ setting
+(3) Setup interfaces in vm
+
+Q2. VT-d setting => IOMMU Group Created?
+
+Q3. Qemu IRQ -> How to link PF and VF.
+
+Things to do tmr: analysis on code qemu/hw/vfio/pci.c
+
 
 ### 2020-12-02
 Q1. Vm shell : nothing
