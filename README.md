@@ -80,6 +80,12 @@ tail -n +[start_line] [filename] > [target_file]
 $ modprobe vfio_pci
 ```
 
+- setup 
+/etc/modprobe.d/vfio.conf
+```
+options vfio-pci ids=03:10.1
+```
+
 - Unbind, and link
 1. check pci device
 ```
