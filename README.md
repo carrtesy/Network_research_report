@@ -111,6 +111,32 @@ echo "0000:03:10.1" > /sys/bus/pci/drivers/vfio-pci/bind
 
 ## Logs
 
+### 2020-12-07
+Trials 
+1. different ip settings (20.0.0.0/24 -> 25.0.0.0/24), not working
+2. qemu code: qemu/util/vfio_helpers.c has
+	- qemu_vfio_open_pci
+
+3. irq todo: how does kvm/qemu get irq?
+before boot
+```
+├── msi_irqs                                           
+│   ├── 72                                         
+│   ├── 73                                                        
+│   └── 74 
+```
+
+after boot
+```
+├── msi_irqs                                                
+│   ├── 72                           
+│   └── 73
+
+```
+
+check https://terenceli.github.io/%E6%8A%80%E6%9C%AF/2018/09/06/qemu-interrupt-emulation
+
+
 ### 2020-12-04
 Q: How does Qemu create interface?
 
